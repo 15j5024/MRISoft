@@ -23,7 +23,7 @@ def getWebCamera():
     else:
         return cv2.VideoCapture(0)
 
-def keyEvent(key):
+def keyEvent(key,img):
     #Press 'S'key and Save img
     if key is ord("s"):
         picture(img)
@@ -55,7 +55,7 @@ def faceJudge():
         cv2.imshow("Faces judge", img)
 
         key = cv2.waitKey(5)
-        keyEvent(key)
+        keyEvent(key,img)
         #Press 'Q'key and end
         if key is ord("q"):
             break

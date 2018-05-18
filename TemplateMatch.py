@@ -4,21 +4,22 @@ import numpy as np
 from matplotlib import pyplot as plt
 from nichika import nichika
 
-def TempMatch(img_src, template):
+def TempMatch(img, template):
 
     #画像読み込み
-    #img_dst = cv2.cvtColor(img_src, cv2.COLOR_RGB2GRAY)
-    img_dst = nichika(img_src)
+    #img_dst = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+    img_dst = nichika(img)
     w, h = template.shape[::-1]
+    
 
     #テンプレートマッチ
     res = cv2.matchTemplate(img_dst,template,cv2.TM_CCOEFF_NORMED)
-    threshold = 0.5
+    threshold = 0.4
     loc = np.where( res >= threshold)
     for pt in zip(*loc[::-1]):
-        cv2.rectangle(img_dst, pt, (pt[0] + w, pt[1] + h), (0,0,255), 2)
+        cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0,0,255), 2)
     
-    return img_dst
+    return img
 
 if __name__ == '__main__':
 
@@ -37,7 +38,7 @@ if __name__ == '__main__':
         name2 = f2 + i + e2
 
         # 画像の読み込み
-        template = cv2.imread(name1, 0)
+        template = cv2.imread(name1,0)
         img_bace = cv2.imread(bace)
         #マッチング
         img_dst = TempMatch(img_bace, template)
